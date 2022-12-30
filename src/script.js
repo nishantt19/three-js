@@ -16,30 +16,13 @@ const sizes = {
 // Scene
 const scene = new THREE.Scene()
 
-// Group of cubes
-const group = new THREE.Group();
-scene.add(group);
-
-const cube1 = new THREE.Mesh(
-    new THREE.BoxGeometry(1,1,1),
-    new THREE.MeshBasicMaterial({color : 0xff0000})
-)
-group.add(cube1);
-
-
-const cube2 = new THREE.Mesh(
-    new THREE.BoxGeometry(1,1,1),
-    new THREE.MeshBasicMaterial({color : 0x00ff00})
-)
-cube2.position.x= -2;
-group.add(cube2);
-
-const cube3 = new THREE.Mesh(
+// 
+const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1,1,1),
     new THREE.MeshBasicMaterial({color : 0x0000ff})
 )
-cube3.position.x= +2;
-group.add(cube3);
+
+scene.add(cube);
 
 
 
@@ -55,30 +38,29 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
-renderer.render(scene, camera)
 
 
 
 
 
-// Transforming objects properties 
-// position
-// cubeMesh.position.x = 1;
-// cubeMesh.position.y = 1;
-// cubeMesh.position.z = 0.5;
-// cubeMesh.position.set(1, 0.4, 0.6);
 
-// scale
-// cubeMesh.scale.x = 2;
-// cubeMesh.scale.y = 0.5;
-// cubeMesh.scale.z = 0.5;
-// cubeMesh.scale.set(2, 0.5, 0.5);
+// Animation
 
-// Axes helper
-// const axesHelper = new THREE.AxesHelper();
-// scene.add(axesHelper);
+const clock = new THREE.Clock();
 
-// rotation
-// cubeMesh.rotation.x = 2;
-// cubeMesh.rotation.y = 2;
-// cubeMesh.rotation.z = 2;
+const tick =()=>{
+    const elapsedTime = clock.getElapsedTime();
+
+
+    cube.rotation.y = elapsedTime;
+   
+    
+
+
+    // render
+    renderer.render(scene, camera);
+
+    window.requestAnimationFrame(tick);
+}
+
+tick();
