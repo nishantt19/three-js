@@ -2,7 +2,7 @@ import './style.css'
 import './style.css';
 
 import * as THREE from 'three';
-import { Mesh } from 'three';
+import gsap from 'gsap';
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -52,7 +52,10 @@ const tick =()=>{
     const elapsedTime = clock.getElapsedTime();
 
 
-    cube.rotation.y = elapsedTime;
+    // cube.rotation.y = elapsedTime;
+    cube.position.y = Math.sin(elapsedTime);
+    cube.position.x = Math.cos(elapsedTime);
+    camera.lookAt(cube.position);
    
     
 
