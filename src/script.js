@@ -7,6 +7,7 @@ import gsap from 'gsap';
 
 
 
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -27,9 +28,33 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Sizes
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+
+window.addEventListener('resize', ()=>{
+    // update sizes
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+
+    // update camera
+    camera.aspect = sizes.width/sizes.height;
+    camera.updateProjectionMatrix();
+
+    // update renderer
+    renderer.setSize(sizes.width, sizes.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+window.addEventListener('dblclick', ()=>{
+    
+    if(!document.fullscreenElement){
+        canvas.requestFullscreen()
+    }
+    else{
+        document.exitFullscreen();
+    }
+})
 
 // Scene
 const scene = new THREE.Scene()
@@ -54,6 +79,7 @@ scene.add(camera);
 
 // controls
 const controls = new OrbitControls(camera, canvas);
+
 controls.enableDamping = true; 
 
 
@@ -75,7 +101,8 @@ controls.enableDamping = true;
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
-renderer.setSize(sizes.width, sizes.height)
+renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 
 
