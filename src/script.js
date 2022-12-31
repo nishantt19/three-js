@@ -11,7 +11,7 @@ import gsap from 'gsap';
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
-// cursor
+
 // const cursor = {
 //     x : 0,
 //     y : 0
